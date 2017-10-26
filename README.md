@@ -31,6 +31,13 @@ Even so many people have noticed:
 and
 [Glide (Android)](https://github.com/bumptech/glide).
 
+## Forked Differences From Main react-native-fast-image
+
+In `FastImage.js`...
+
+- Changed `View.propTypes` to `ViewPropTypes || View.propTypes` to accommodate newer versions of React Native
+- Added `PropTypes.number` to available types of the `source` prop on the FastImage component. This way, there aren't any PropType warnings logged when a local image is passed as the source using `require`.
+
 ## Features
 
 - [x] Aggressively cache images.
