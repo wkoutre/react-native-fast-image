@@ -1,19 +1,20 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   Image,
   NativeModules,
   requireNativeComponent,
   View,
-} from 'react-native'
+  ViewPropTypes
+} from "react-native";
 
-const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource')
+const resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSource");
 
-const FastImageViewNativeModule = NativeModules.FastImageView
+const FastImageViewNativeModule = NativeModules.FastImageView;
 
 class FastImage extends Component {
   setNativeProps(nativeProps) {
-    this._root.setNativeProps(nativeProps)
+    this._root.setNativeProps(nativeProps);
   }
 
   render() {
@@ -25,7 +26,7 @@ class FastImage extends Component {
       onError,
       onLoadEnd,
       ...props
-    } = this.props
+    } = this.props;
 
     // If there's no source or source uri just fallback to Image.
     if (!source || !source.uri) {
@@ -40,10 +41,10 @@ class FastImage extends Component {
           onError={onError}
           onLoadEnd={onLoadEnd}
         />
-      )
+      );
     }
 
-    const resolvedSource = resolveAssetSource(source)
+    const resolvedSource = resolveAssetSource(source);
     return (
       <FastImageView
         ref={e => (this._root = e)}
@@ -55,55 +56,55 @@ class FastImage extends Component {
         onFastImageError={onError}
         onFastImageLoadEnd={onLoadEnd}
       />
-    )
+    );
   }
 }
 
 FastImage.resizeMode = {
-  contain: 'contain',
-  cover: 'cover',
-  stretch: 'stretch',
-  center: 'center',
-}
+  contain: "contain",
+  cover: "cover",
+  stretch: "stretch",
+  center: "center"
+};
 
 FastImage.priority = {
-  low: 'low',
-  normal: 'normal',
-  high: 'high',
-}
+  low: "low",
+  normal: "normal",
+  high: "high"
+};
 
 FastImage.preload = sources => {
-  FastImageViewNativeModule.preload(sources)
-}
+  FastImageViewNativeModule.preload(sources);
+};
 
 FastImage.defaultProps = {
-  resizeMode: FastImage.resizeMode.cover,
-}
+  resizeMode: FastImage.resizeMode.cover
+};
 
 const FastImageSourcePropType = PropTypes.shape({
   uri: PropTypes.string,
   headers: PropTypes.objectOf(PropTypes.string),
-  priority: PropTypes.oneOf(Object.keys(FastImage.priority)),
-})
+  priority: PropTypes.oneOf(Object.keys(FastImage.priority))
+});
 
 FastImage.propTypes = {
-  ...View.propTypes,
-  source: FastImageSourcePropType,
+  ...ViewPropTypes,
+  source: PropTypes.oneOfType([FastImageSourcePropType, PropTypes.number]),
   onLoadStart: PropTypes.func,
   onProgress: PropTypes.func,
   onLoad: PropTypes.func,
   onError: PropTypes.func,
-  onLoadEnd: PropTypes.func,
-}
+  onLoadEnd: PropTypes.func
+};
 
-const FastImageView = requireNativeComponent('FastImageView', FastImage, {
+const FastImageView = requireNativeComponent("FastImageView", FastImage, {
   nativeOnly: {
     onFastImageLoadStart: true,
     onFastImageProgress: true,
     onFastImageLoad: true,
     onFastImageError: true,
-    onFastImageLoadEnd: true,
-  },
-})
+    onFastImageLoadEnd: true
+  }
+});
 
-export default FastImage
+export default FastImage;
