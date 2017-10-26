@@ -12,6 +12,8 @@ const resolveAssetSource = require("react-native/Libraries/Image/resolveAssetSou
 
 const FastImageViewNativeModule = NativeModules.FastImageView;
 
+const ViewPropsToUse = ViewPropTypes || View.propTypes;
+
 class FastImage extends Component {
   setNativeProps(nativeProps) {
     this._root.setNativeProps(nativeProps);
@@ -88,7 +90,7 @@ const FastImageSourcePropType = PropTypes.shape({
 });
 
 FastImage.propTypes = {
-  ...ViewPropTypes,
+  ...ViewPropsToUse,
   source: PropTypes.oneOfType([FastImageSourcePropType, PropTypes.number]),
   onLoadStart: PropTypes.func,
   onProgress: PropTypes.func,
