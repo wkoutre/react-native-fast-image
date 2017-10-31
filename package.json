@@ -1,6 +1,6 @@
 {
     "name": "react-native-49-fast-image",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": ["cache", "cached", "fastimage", "image", "priority"],
     "homepage": "https://github.com/DylanVann/react-native-fast-image#readme",
